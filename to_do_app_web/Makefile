@@ -18,7 +18,6 @@ build:
 install:
 	$(DOCKER_EXEC_TOOLS_APP) -c $(NODE_INSTALL)
 
-
 dev:
 	$(DOCKER_EXEC_TOOLS_APP) -c $(SERVER_RUN)
 
