@@ -16,6 +16,7 @@ import pl.agh.backend.repository.TaskRepository;
 public class TaskController {
     @Autowired TaskRepository taskRepository;
 
+    //Getting all tasks
     @GetMapping("/tasks")
     public ResponseEntity <List<Task>> getAllTasks () {
         try{
@@ -30,6 +31,7 @@ public class TaskController {
         }
     }
 
+    //Getting only task that are done
     @GetMapping("/tasks/done")
     public ResponseEntity<List<Task>> getDoneTasks() {
         try{
@@ -43,6 +45,21 @@ public class TaskController {
         }
     }
 
+    //Getting only task that are undone
+    @GetMapping("/tasks/undone")
+    public ResponseEntity<List<Task>> getUnDoneTasks() {
+        try{
+            List<Task> tasks = taskRepository.findTaskByDone(false);
+            if(tasks.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(tasks, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //Creating a task
     @PostMapping("/tasks")
     public ResponseEntity<Task> createTask (@RequestBody Task task){
         try{
@@ -51,6 +68,42 @@ public class TaskController {
             return new ResponseEntity<>(_task, HttpStatus.CREATED);
         } catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //Updating a task
+    @PutMapping("/tasks/{id}")
+    public ResponseEntity<Task> updateTask (@PathVariable("id") long id, @RequestBody Task task){
+        Optional<Task> taskData = taskRepository.findById(id);
+        if (taskData.isPresent()){
+            Task _task = taskData.get();
+            _task.setTitle(task.getTitle());
+            _task.setDone(task.isDone());
+            return new ResponseEntity<>(taskRepository.save(_task), HttpStatus.OK);
+        } else  {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //Deleting a task
+    @DeleteMapping("/tasks/{id}")
+    public ResponseEntity<HttpStatus> deleteTask(@PathVariable("id") long id){
+        try{
+            taskRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //Deleting all tasks
+    @DeleteMapping("/tasks")
+    public ResponseEntity<HttpStatus> deleteAllTasks(){
+        try{
+            taskRepository.deleteAll();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
