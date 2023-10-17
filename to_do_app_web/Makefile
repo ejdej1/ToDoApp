@@ -6,6 +6,7 @@ DOCKER_COMPOSE?=docker compose
 DOCKER_EXEC_TOOLS_APP=$(CURRENT_USER) docker exec -it $(DOCKER_NAME) sh
 NODE_INSTALL="npm i"
 SERVER_RUN="npm run dev"
+INSTALL_MUI_PACKAGES="npm install @mui/material @emotion/react @emotion/styled @mui/icons-material"
 
 
 .PHONY: build install dev up start first stop restart clear
@@ -17,6 +18,7 @@ build:
 
 install:
 	$(DOCKER_EXEC_TOOLS_APP) -c $(NODE_INSTALL)
+	$(DOCKER_EXEC_TOOLS_APP) -c $(INSTALL_MUI_PACKAGES)
 
 dev:
 	$(DOCKER_EXEC_TOOLS_APP) -c $(SERVER_RUN)

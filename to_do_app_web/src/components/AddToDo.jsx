@@ -1,6 +1,7 @@
 import React from "react";
 import { db } from "../firebase";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
+import AddIcon from '@mui/icons-material/Add';
 
 export default function AddToDo() {
     const [title, setTitle] = React.useState("");
@@ -27,8 +28,10 @@ return (
             />
         </div>
 
-        <div className="btn_container">
-            <button>Add</button>  
+        <div className="btn_container-add">
+            <button className="button-add">
+            <AddIcon id="i" />    
+            </button>  
         </div>
 
     </form>

@@ -1,4 +1,7 @@
 import React from "react";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function ToDo({
     todo,
@@ -9,7 +12,7 @@ export default function ToDo({
     const [newTitle, setNewTitle] = React.useState(todo.title);
 
     const handleChange = (e) => {
-        e.prevetDefault();
+        e.preventDefault();
         if(todo.complete === true){
             setNewTitle(todo.title);
         } else {
@@ -22,6 +25,7 @@ export default function ToDo({
     return (   
         <div className="todo">
             <input
+                style={{ textDecoration: todo.completed && "line-through" }}
                 type="text"
                 value={todo.title === "" ? newTitle : todo.title}
                 className="list" 
@@ -32,19 +36,13 @@ export default function ToDo({
                     className="button-complete"
                     onClick={() => toggleComplete(todo)}
                 >
-                    complete
-                </button>
-                <button
-                    className="button-edit"
-                    onClick={() => handleEdit(todo, newTitle)}
-                >
-                    edit
+                    <CheckCircleIcon id="i" />
                 </button>
                 <button
                     className="button-delete"
                     onClick={() => handleDelete(todo.id)}
                 >
-                    delete
+                    <DeleteIcon id="i" />
                 </button>
             </div>
         </div>
