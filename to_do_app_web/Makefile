@@ -6,6 +6,8 @@ DOCKER_COMPOSE?=docker compose
 DOCKER_EXEC_TOOLS_APP=$(CURRENT_USER) docker exec -it $(DOCKER_NAME) sh
 NODE_INSTALL="npm i"
 SERVER_RUN="npm run dev"
+INSTALL_BOOTSTRAP="npm install bootstrap"
+INSTALL_REACTSTRAP="npm install reactstrap"
 INSTALL_MUI_PACKAGES="npm install @mui/material @emotion/react @emotion/styled @mui/icons-material"
 
 
@@ -18,7 +20,8 @@ build:
 
 install:
 	$(DOCKER_EXEC_TOOLS_APP) -c $(NODE_INSTALL)
-	$(DOCKER_EXEC_TOOLS_APP) -c $(INSTALL_MUI_PACKAGES)
+	$(DOCKER_EXEC_TOOLS_APP) -c $(INSTALL_BOOTSTRAP)
+	$(DOCKER_EXEC_TOOLS_APP) -c $(INSTALL_REACTSTRAP)
 
 dev:
 	$(DOCKER_EXEC_TOOLS_APP) -c $(SERVER_RUN)

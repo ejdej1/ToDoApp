@@ -1,5 +1,9 @@
 import React from 'react';
 import './App.css';
+import ToDoList from './components/ToDoList';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 import Main from "./components/Main";
 import AddToDo from './components/AddToDo';
 import ToDo from './components/todo';
@@ -37,7 +41,7 @@ function App() {
 
   return (
       <div className='App'>
-          <div>
+          {/* <div>
             <Main/>
           </div>
           <div>
@@ -53,6 +57,11 @@ function App() {
               handleEdit={handleEdit}
               />
             ))}
+          </div> */}
+
+          <div>
+            <ToDoList/>
+
           </div>
       </div>
   );
