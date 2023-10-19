@@ -57,4 +57,5 @@
 .edit-icon,
 .delete-icon {
 margin: 3px;
+cursor: pointer;
 }

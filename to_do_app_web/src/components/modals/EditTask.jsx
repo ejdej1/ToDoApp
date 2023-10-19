@@ -1,31 +1,28 @@
-import React from "react";
-import { db } from "../../firebase";
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
+import React, { useEffect } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import ToDoList from "../ToDoList";
 
-const CreateTask = ({modal, toggle}) => {
+const EditTask = ({modal, toggle, updateTask, todo}) => {
     const [title, setTitle] = React.useState('');
     const [description, setDescription] = React.useState('');
 
-    const handleSubmit = async (e) => {
-        toggle();
+    useEffect(() => {
+        setTitle(todo.title);
+        setDescription(todo.description);
+    },[]);
+
+    const handleUpdate = (e) => {
         e.preventDefault();
-        if (title != "") {
-            await addDoc(collection(db, "todos"), {
-                title,
-                description,
-                completed: false,
-            });
-            setTitle("");
-            setDescription("");
-        }
-    window.location.reload();
-};
+        toggle();
+        let tempTodo = {};
+        tempTodo['newName'] = title;
+        tempTodo['newDescription'] = description;
+        updateTask(tempTodo, todo);
+        
+    }
 
     return (
         <Modal isOpen={modal} toggle={toggle}>
-            <ModalHeader toggle={toggle}>Create Task</ModalHeader>
+            <ModalHeader toggle={toggle}>Update Task</ModalHeader>
                 <ModalBody>
                     <form>
                         <div className="form-group">
@@ -40,8 +37,8 @@ const CreateTask = ({modal, toggle}) => {
                 </ModalBody>
                 
                 <ModalFooter>
-                    <Button id="create-btn" color="primary" onClick={handleSubmit}>
-                        Create
+                    <Button id="create-btn" color="primary" onClick={handleUpdate}>
+                        Update
                     </Button>{' '}
                     <Button color="secondary" onClick={toggle}>
                         Cancel
@@ -52,4 +49,4 @@ const CreateTask = ({modal, toggle}) => {
 
 };
 
-export default CreateTask;
+export default EditTask;
