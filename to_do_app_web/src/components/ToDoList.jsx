@@ -3,7 +3,6 @@ import CreateTask from "./modals/createTask";
 import { collection, query, onSnapshot, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
 import { db } from '../firebase';
 import Card from "./Card";
-import EditTask from "./modals/EditTask";
 
 const ToDoList = () => {
     const [modal, setModal] = useState(false);
@@ -43,7 +42,7 @@ const ToDoList = () => {
         <>
             <div className="header text-center">   
                 <h3>To Do List</h3>
-                <button className="btn btn-primary mt-2" onClick={() => setModal(true)}> Create Task</button>
+                <button className="btn btn-primary bt-lg mt-2" onClick={() => setModal(true)}> Create Task</button>
             </div>
             <div className="task-container">
                 {todos.map((todo, index) => 

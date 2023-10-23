@@ -43,10 +43,10 @@ const Card = ({todo, deleteTask, updateTodo}) => {
 
     return (
         <div className="card-wrapper mr-5">
-            <div className="card-top" style={{"backgroundColor": colors[Math.floor(Math.random() * 6)%5].primaryColor}}></div>
+            <div className="card-top" style={{"backgroundColor": colors[0].primaryColor}}></div>
             <div className="task-holder">
-                <span className="card-header">{todo.title}</span>
-                <p className="mt-3">{todo.description}</p>
+                <span className="card-header" style={{"backgroundColor": colors[0].secondaryColor}}>{todo.title}</span>
+                <p className="mt-3 card-content">{todo.description}</p>
 
                 <div style={{"position": "absolute", "right" : "20px", "bottom" : "20px"}}>
                     <EditIcon  className="edit-icon" onClick={() => setModal(true)}/>

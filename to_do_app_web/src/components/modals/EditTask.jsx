@@ -26,11 +26,11 @@ const EditTask = ({modal, toggle, updateTask, todo}) => {
                 <ModalBody>
                     <form>
                         <div className="form-group">
-                            <label>Task name</label>
+                            <label className="label">Task name</label>
                             <input type="text" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)}></input>
                         </div>
                         <div className="form-group">
-                            <label>Taks description</label>
+                            <label className="label">Taks description</label>
                             <textarea rows = "5" className="form-control" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
                         </div>
                     </form>
