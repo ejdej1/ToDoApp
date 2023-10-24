@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import EditTask from './modals/EditTask';
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const Card = ({todo, deleteTask, updateTodo}) => {
     const [modal, setModal] = useState(false);
@@ -46,9 +47,10 @@ const Card = ({todo, deleteTask, updateTodo}) => {
             <div className="card-top" style={{"backgroundColor": colors[0].primaryColor}}></div>
             <div className="task-holder">
                 <span className="card-header" style={{"backgroundColor": colors[0].secondaryColor}}>{todo.title}</span>
-                <p className="mt-3 card-content">{todo.description}</p>
+                <p className="card-content">{todo.description}</p>
 
-                <div style={{"position": "absolute", "right" : "20px", "bottom" : "20px"}}>
+                <div style={{"position": "absolute", "right" : "10px", "bottom" : "10px"}}>
+                    <CheckCircleIcon className='check-icon'/>
                     <EditIcon  className="edit-icon" onClick={() => setModal(true)}/>
                     <DeleteIcon className="delete-icon" onClick={handleDelete}/>
                 </div>

@@ -41,8 +41,11 @@ const ToDoList = () => {
     return (
         <>
             <div className="header text-center">   
-                <h3>To Do List</h3>
+                <h3>TO DO LIST</h3>
                 <button className="btn btn-primary bt-lg mt-2" onClick={() => setModal(true)}> Create Task</button>
+            </div>
+            <div className="todo-container mt-3 text-left">
+                <h4>To do tasks</h4>
             </div>
             <div className="task-container">
                 {todos.map((todo, index) => 
@@ -53,6 +56,9 @@ const ToDoList = () => {
                         updateTodo={updateTodo}
                     />
                 )}
+            </div>
+            <div className="completed-container text-left">
+                <h4>tasks completed</h4>
             </div>
 
             <CreateTask toggle = {toggle} modal = {modal}/>
