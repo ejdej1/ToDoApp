@@ -16,8 +16,7 @@ const EditTask = ({modal, toggle, updateTask, todo}) => {
         let tempTodo = {};
         tempTodo['newName'] = title;
         tempTodo['newDescription'] = description;
-        updateTask(tempTodo, todo);
-        
+        updateTask(tempTodo, todo);        
     }
 
     return (
@@ -26,11 +25,11 @@ const EditTask = ({modal, toggle, updateTask, todo}) => {
                 <ModalBody>
                     <form>
                         <div className="form-group">
-                            <label className="label">Task name</label>
+                            <label>Task name</label>
                             <input type="text" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)}></input>
                         </div>
                         <div className="form-group">
-                            <label className="label">Taks description</label>
+                            <label>Taks description</label>
                             <textarea rows = "5" className="form-control" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
                         </div>
                     </form>

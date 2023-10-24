@@ -79,7 +79,8 @@
 
 .edit-icon,
 .delete-icon, 
-.check-icon {
+.check-icon,
+.undo-icon {
   opacity: 0.75;
   margin: 3px;
   cursor: pointer;
@@ -87,7 +88,8 @@
 
 .edit-icon:hover,
 .delete-icon:hover,
-.check-icon:hover {
+.check-icon:hover,
+.undo-icon:hover {
   opacity:1;
   transform: scale(1.1);
 }
@@ -130,5 +132,9 @@ button:hover{
 .todo-container {
   max-width: 1440px;
   margin: 0 auto;
+  text-transform: uppercase !important;
+}
+
+.task-info {
   text-transform: uppercase !important;
 }

@@ -13,7 +13,7 @@ const ToDoList = () => {
         const q = query(collection(db, "todos"));
         const unsub = onSnapshot(q, (querySnapshot) => {
             let todosArray = [];
-        querySnapshot.forEach((doc) => {
+            querySnapshot.forEach((doc) => {
             todosArray.push({ ...doc.data(), index: doc.id});
         });
         setTodos(todosArray);
@@ -38,6 +38,20 @@ const ToDoList = () => {
         window.location.reload();
     }
 
+    const completeTask = async (index) => {
+        await updateDoc(doc(db, "todos", doc.id=index), {
+            completed: true
+        });
+        window.location.reload();
+    }
+
+    const undoTask = async (index) => {
+        await updateDoc(doc(db, "todos", doc.id=index), {
+            completed: false
+        });
+        window.location.reload();
+    }
+
     return (
         <>
             <div className="header text-center">   
@@ -48,19 +62,51 @@ const ToDoList = () => {
                 <h4>To do tasks</h4>
             </div>
             <div className="task-container">
-                {todos.map((todo, index) => 
-                    <Card 
-                        key={index}
-                        todo={todo}
-                        deleteTask = {deleteTask}
-                        updateTodo={updateTodo}
-                    />
-                )}
+                {todos.every(todo => todo.completed) ? (
+                    <h6 className="task-info">There are no active tasks in your list.</h6>
+                ) : (
+                    todos.map((todo, index) => {
+                        if (!todo.completed) {
+                    return (
+                        <Card 
+                            key={index}
+                            todo={todo}
+                            deleteTask={deleteTask}
+                            updateTodo={updateTodo}
+                            completeTask={completeTask}
+                            undoTask={undoTask}
+                        />
+                    );
+                } else {
+                    return null;
+                }
+                })
+            )}
             </div>
-            <div className="completed-container text-left">
-                <h4>tasks completed</h4>
+            {todos.some(todo => todo.completed) ? (
+                <div className="completed-container text-left">
+                    <h4>Completed tasks</h4>
+                </div>
+            ) : null}
+            <div className="task-container">
+                {todos.map((todo, index) => {
+                    if (todo.completed) {
+                        return (
+                            <Card
+                                key={index}
+                                todo={todo}
+                                deleteTask={deleteTask}
+                                updateTodo={updateTodo}
+                                completeTask={completeTask}
+                                undoTask={undoTask}
+                                showDeleteIcon={true}
+                            />
+                        );
+                    } else {
+                        return null;
+                    };
+                })}
             </div>
-
             <CreateTask toggle = {toggle} modal = {modal}/>
         </>
             

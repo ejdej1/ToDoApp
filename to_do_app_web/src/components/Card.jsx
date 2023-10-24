@@ -3,8 +3,9 @@ import EditTask from './modals/EditTask';
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import UndoIcon from '@mui/icons-material/Undo';
 
-const Card = ({todo, deleteTask, updateTodo}) => {
+const Card = ({todo, deleteTask, updateTodo, completeTask, undoTask}) => {
     const [modal, setModal] = useState(false);
 
     const toggle = () => {
@@ -16,7 +17,15 @@ const Card = ({todo, deleteTask, updateTodo}) => {
     }
 
     const handleDelete = () => {
-        deleteTask(todo.index)
+        deleteTask(todo.index);
+    }
+
+    const handleComplete = () => {
+        completeTask(todo.index);
+    }
+
+    const handleUndo = () => {
+        undoTask(todo.index);
     }
 
     const colors = [
@@ -50,9 +59,18 @@ const Card = ({todo, deleteTask, updateTodo}) => {
                 <p className="card-content">{todo.description}</p>
 
                 <div style={{"position": "absolute", "right" : "10px", "bottom" : "10px"}}>
-                    <CheckCircleIcon className='check-icon'/>
-                    <EditIcon  className="edit-icon" onClick={() => setModal(true)}/>
-                    <DeleteIcon className="delete-icon" onClick={handleDelete}/>
+                    {!todo.completed && (
+                        <CheckCircleIcon className="check-icon" onClick={handleComplete}/>
+                    )}
+                    {!todo.completed && (
+                        <EditIcon  className="edit-icon" onClick={() => setModal(true)}/>
+                    )}
+                    {todo.completed && (
+                        <UndoIcon className="undo-icon" onClick={handleUndo}/>
+                    )}
+                    {todo.completed && (
+                        <DeleteIcon className="delete-icon" onClick={handleDelete} />
+                    )}
                 </div>
         </div>
         <EditTask 
